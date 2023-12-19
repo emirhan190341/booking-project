@@ -13,6 +13,7 @@ services:
       - '5432:5432'
     networks:
       - bookingProjectNetwork
+
   bookingproject:
     image: 'bookingproject:latest'
     build:
@@ -30,3 +31,5 @@ services:
 
 networks:
   bookingProjectNetwork:
+
+
