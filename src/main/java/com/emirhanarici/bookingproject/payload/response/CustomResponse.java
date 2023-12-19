@@ -50,5 +50,13 @@ public class CustomResponse<T> {
                 .build();
     }
 
+    public static <E> CustomResponse<E> ok(E response) {
+        return CustomResponse.<E>builder()
+                .response(response)
+                .isSuccess(true)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
 
 }

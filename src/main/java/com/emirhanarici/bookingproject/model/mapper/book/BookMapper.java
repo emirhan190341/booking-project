@@ -4,6 +4,7 @@ import com.emirhanarici.bookingproject.dto.BookDTO;
 import com.emirhanarici.bookingproject.model.Book;
 import com.emirhanarici.bookingproject.payload.request.book.BookCreateRequest;
 import com.emirhanarici.bookingproject.payload.response.book.BookCreatedResponse;
+import com.emirhanarici.bookingproject.payload.response.book.BookGetResponse;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -43,6 +44,22 @@ public class BookMapper {
                 .stock(source.getStock())
                 .price(source.getPrice())
                 .build();
+    }
+
+    public static BookGetResponse toGetResponse(BookDTO source) {
+        if (source == null) {
+            return null;
+        }
+
+        return BookGetResponse.builder()
+                .id(source.getId())
+                .isbn(source.getIsbn())
+                .name(source.getName())
+                .authorFullName(source.getAuthorFullName())
+                .stock(source.getStock())
+                .price(source.getPrice())
+                .build();
+
     }
 
     /**
