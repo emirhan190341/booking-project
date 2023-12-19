@@ -16,8 +16,8 @@ public class BookingProjectApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(JdbcConnectionDetails jdbc) {
 		return args -> {
-			System.out.println("buradayim");
 			System.out.println(jdbc.getClass().getName());
+			System.out.println(jdbc.getJdbcUrl());
 		};
 	}
 
