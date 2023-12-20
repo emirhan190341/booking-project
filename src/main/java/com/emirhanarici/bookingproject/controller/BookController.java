@@ -3,12 +3,15 @@ package com.emirhanarici.bookingproject.controller;
 import com.emirhanarici.bookingproject.dto.BookDTO;
 import com.emirhanarici.bookingproject.model.mapper.book.BookMapper;
 import com.emirhanarici.bookingproject.payload.request.book.BookCreateRequest;
+import com.emirhanarici.bookingproject.payload.request.pagination.PaginationRequest;
+import com.emirhanarici.bookingproject.payload.response.CustomPageResponse;
 import com.emirhanarici.bookingproject.payload.response.CustomResponse;
 import com.emirhanarici.bookingproject.payload.response.book.BookCreatedResponse;
 import com.emirhanarici.bookingproject.payload.response.book.BookGetResponse;
 import com.emirhanarici.bookingproject.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +37,15 @@ public class BookController {
         final BookGetResponse response = BookMapper.toGetResponse(bookEntityFromDb);
 
         return CustomResponse.ok(response);
+    }
+
+    @PostMapping("/all")
+    public CustomResponse<CustomPageResponse<BookGetResponse>> getBooks(@RequestBody @Valid PaginationRequest paginationRequest) {
+        final Page<BookDTO> bookEntitiesFromDb = bookService.getAllBooks(paginationRequest);
+        final CustomPageResponse<BookGetResponse> responses = BookMapper
+                .toGetResponse(bookEntitiesFromDb);
+
+        return CustomResponse.ok(responses);
     }
 
 
