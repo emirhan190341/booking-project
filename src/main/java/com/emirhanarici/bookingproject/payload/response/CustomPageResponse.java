@@ -52,5 +52,4 @@ public class CustomPageResponse<T> {
                 .build();
     }
 
-
 }
