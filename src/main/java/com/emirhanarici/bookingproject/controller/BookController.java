@@ -3,6 +3,7 @@ package com.emirhanarici.bookingproject.controller;
 import com.emirhanarici.bookingproject.dto.BookDTO;
 import com.emirhanarici.bookingproject.model.mapper.book.BookMapper;
 import com.emirhanarici.bookingproject.payload.request.book.BookCreateRequest;
+import com.emirhanarici.bookingproject.payload.request.book.BookUpdateStockRequest;
 import com.emirhanarici.bookingproject.payload.request.pagination.PaginationRequest;
 import com.emirhanarici.bookingproject.payload.response.CustomPageResponse;
 import com.emirhanarici.bookingproject.payload.response.CustomResponse;
@@ -60,4 +61,14 @@ public class BookController {
 
         return CustomResponse.ok(response);
     }
+
+    @PutMapping("/stock-amount/{bookId}")
+    public CustomResponse<BookUpdatedResponse> updateStock(@PathVariable String bookId, @RequestBody @Valid final BookUpdateStockRequest request) {
+        final BookDTO updatedBookEntity = bookService.updateBookStockById(bookId, request);
+        final BookUpdatedResponse response = BookMapper.toUpdatedResponse(updatedBookEntity);
+
+        return CustomResponse.ok(response);
+    }
+
+
 }

@@ -6,6 +6,7 @@ import com.emirhanarici.bookingproject.model.Book;
 import com.emirhanarici.bookingproject.model.mapper.book.BookMapper;
 import com.emirhanarici.bookingproject.payload.request.book.BookCreateRequest;
 import com.emirhanarici.bookingproject.payload.request.book.BookUpdateRequest;
+import com.emirhanarici.bookingproject.payload.request.book.BookUpdateStockRequest;
 import com.emirhanarici.bookingproject.payload.request.pagination.PaginationRequest;
 import com.emirhanarici.bookingproject.repository.BookRepository;
 import jakarta.transaction.Transactional;
@@ -52,6 +53,16 @@ public class BookService {
         BookMapper.mapForUpdating(bookEntityToBeUpdate, request);
 
         return BookMapper.toDTO(bookRepository.save(bookEntityToBeUpdate));
+    }
+
+    @Transactional
+    public BookDTO updateBookStockById(String bookId, BookUpdateStockRequest request) {
+
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+        book.setStock(request.getStock());
+
+        return BookMapper.toDTO(bookRepository.save(book));
     }
 
 
