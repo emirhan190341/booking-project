@@ -60,7 +60,4 @@ public class BookController {
 
         return CustomResponse.ok(response);
     }
-
-
-
 }
