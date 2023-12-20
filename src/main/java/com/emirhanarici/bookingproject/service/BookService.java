@@ -5,6 +5,7 @@ import com.emirhanarici.bookingproject.exception.book.BookNotFoundException;
 import com.emirhanarici.bookingproject.model.Book;
 import com.emirhanarici.bookingproject.model.mapper.book.BookMapper;
 import com.emirhanarici.bookingproject.payload.request.book.BookCreateRequest;
+import com.emirhanarici.bookingproject.payload.request.book.BookUpdateRequest;
 import com.emirhanarici.bookingproject.payload.request.pagination.PaginationRequest;
 import com.emirhanarici.bookingproject.repository.BookRepository;
 import jakarta.transaction.Transactional;
@@ -41,4 +42,17 @@ public class BookService {
                 .findAll(paginationRequest.toPageable())
                 .map(BookMapper::toDTO);
     }
+
+    @Transactional
+    public BookDTO updateBookById(final String bookId, final BookUpdateRequest request) {
+        final Book bookEntityToBeUpdate = bookRepository
+                .findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+
+        BookMapper.mapForUpdating(bookEntityToBeUpdate, request);
+
+        return BookMapper.toDTO(bookRepository.save(bookEntityToBeUpdate));
+    }
+
+
 }

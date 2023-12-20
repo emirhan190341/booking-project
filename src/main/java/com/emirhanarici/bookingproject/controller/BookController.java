@@ -8,6 +8,8 @@ import com.emirhanarici.bookingproject.payload.response.CustomPageResponse;
 import com.emirhanarici.bookingproject.payload.response.CustomResponse;
 import com.emirhanarici.bookingproject.payload.response.book.BookCreatedResponse;
 import com.emirhanarici.bookingproject.payload.response.book.BookGetResponse;
+import com.emirhanarici.bookingproject.payload.request.book.BookUpdateRequest;
+import com.emirhanarici.bookingproject.payload.response.book.BookUpdatedResponse;
 import com.emirhanarici.bookingproject.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,18 @@ public class BookController {
 
         return CustomResponse.ok(responses);
     }
+
+    @PutMapping("/{bookId}")
+    public CustomResponse<BookUpdatedResponse> updateBookByBookId(@PathVariable("bookId") final String bookId,
+                                                                  @RequestBody @Valid final BookUpdateRequest request) {
+        final BookDTO updatedBookEntity = bookService
+                .updateBookById(bookId, request);
+        final BookUpdatedResponse response = BookMapper
+                .toUpdatedResponse(updatedBookEntity);
+
+        return CustomResponse.ok(response);
+    }
+
 
 
 }
