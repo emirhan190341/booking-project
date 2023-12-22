@@ -2,6 +2,7 @@ package com.emirhanarici.bookingproject.service;
 
 import com.emirhanarici.bookingproject.dto.BookDTO;
 import com.emirhanarici.bookingproject.exception.book.BookNotFoundException;
+import com.emirhanarici.bookingproject.exception.book.NoAvailableStockException;
 import com.emirhanarici.bookingproject.model.Book;
 import com.emirhanarici.bookingproject.model.mapper.book.BookMapper;
 import com.emirhanarici.bookingproject.payload.request.book.BookCreateRequest;
@@ -9,10 +10,10 @@ import com.emirhanarici.bookingproject.payload.request.book.BookUpdateRequest;
 import com.emirhanarici.bookingproject.payload.request.book.BookUpdateStockRequest;
 import com.emirhanarici.bookingproject.payload.request.pagination.PaginationRequest;
 import com.emirhanarici.bookingproject.repository.BookRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +64,15 @@ public class BookService {
         book.setStock(request.getStock());
 
         return BookMapper.toDTO(bookRepository.save(book));
+    }
+
+    public boolean isStockAvailable(BookDTO bookDTO, int amount) {
+        if (bookDTO.getStock() < amount) {
+            throw new NoAvailableStockException(amount);
+        } else {
+            return true;
+        }
+
     }
 
 
