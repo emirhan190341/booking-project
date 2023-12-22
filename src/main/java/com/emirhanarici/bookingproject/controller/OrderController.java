@@ -5,6 +5,7 @@ import com.emirhanarici.bookingproject.model.mapper.order.OrderMapper;
 import com.emirhanarici.bookingproject.payload.request.order.CreateOrderRequest;
 import com.emirhanarici.bookingproject.payload.response.CustomResponse;
 import com.emirhanarici.bookingproject.payload.response.order.OrderCreatedResponse;
+import com.emirhanarici.bookingproject.payload.response.order.OrderGetResponse;
 import com.emirhanarici.bookingproject.service.OrderSaveService;
 import com.emirhanarici.bookingproject.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class OrderController {
         final OrderDTO orderDTO = orderService.findOrderById(orderId);
         final OrderGetResponse response = OrderMapper.toGetResponse(orderDTO);
 
+        return CustomResponse.ok(response);
     }
 
 
