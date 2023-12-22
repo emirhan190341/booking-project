@@ -28,4 +28,13 @@ public class OrderController {
         return CustomResponse.created(response);
     }
 
+    @GetMapping("/{orderId}")
+    public CustomResponse<OrderGetResponse> getOrderById(@PathVariable final Long orderId) {
+
+        final OrderDTO orderDTO = orderService.findOrderById(orderId);
+        final OrderGetResponse response = OrderMapper.toGetResponse(orderDTO);
+
+    }
+
+
 }
