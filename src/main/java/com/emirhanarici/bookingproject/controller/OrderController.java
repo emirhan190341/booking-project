@@ -5,8 +5,11 @@ import com.emirhanarici.bookingproject.model.mapper.order.OrderMapper;
 import com.emirhanarici.bookingproject.payload.request.order.CreateOrderRequest;
 import com.emirhanarici.bookingproject.payload.request.pagination.PaginatedFindAllRequest;
 import com.emirhanarici.bookingproject.payload.request.pagination.PaginationRequest;
+import com.emirhanarici.bookingproject.payload.response.CustomPageResponse;
 import com.emirhanarici.bookingproject.payload.response.CustomResponse;
 import com.emirhanarici.bookingproject.payload.response.order.OrderCreatedResponse;
+import com.emirhanarici.bookingproject.payload.response.order.OrderGetBetweenDatesResponse;
+import com.emirhanarici.bookingproject.payload.response.order.OrderGetByCustomerResponse;
 import com.emirhanarici.bookingproject.payload.response.order.OrderGetResponse;
 import com.emirhanarici.bookingproject.service.OrderSaveService;
 import com.emirhanarici.bookingproject.service.OrderService;
@@ -67,9 +70,5 @@ public class OrderController {
 
         return CustomResponse.ok(response);
     }
-
-
-
-
 
 }
