@@ -42,4 +42,5 @@ public class StatisticsController {
         CustomPageResponse<OrderReportResponse> orderReportResponse = OrderReportMapper.toOrderReportResponseList(orderReportDTOs);
         return CustomResponse.ok(orderReportResponse);
     }
+
 }
